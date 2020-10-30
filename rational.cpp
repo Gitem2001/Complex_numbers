@@ -66,4 +66,10 @@ std::ostream &operator<<(std::ostream &out, rational_num &num) {
   out << num.up << '/' << num.down;
   return out;
 }
-};
+rational_num rational_num::operator^(unsigned int n) {
+  rational_num result = *this * *this;
+  for (int i = 0; i < n - 2; i++) {
+    result = result * *this;
+  }
+  return result;
+}

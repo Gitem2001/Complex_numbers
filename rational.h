@@ -25,7 +25,7 @@ class rational_num {
   rational_num operator*(const rational_num &other);
   rational_num operator/(const rational_num &other);
   bool operator==(const rational_num &other) const;
-
+  rational_num operator^(unsigned int n);
   rational_num operator-();
 
   friend std::ostream &operator<<(std::ostream &out, rational_num &num);

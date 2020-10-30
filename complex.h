@@ -18,7 +18,7 @@ class complex_num {
   complex_num operator-(const complex_num &other);
 
   complex_num operator*(const complex_num &other);
-
+  complex_num operator/( complex_num &other);
   bool operator==(complex_num &other);
 
   bool operator!=(const complex_num *other);
@@ -30,7 +30,7 @@ class complex_num {
 
   friend std::ostream &operator<<(std::ostream &out, complex_num num);
   complex_num operator^(unsigned int n);
-  double abs() const;
+  double abs() ;
   rational_num getreal() const;
   rational_num getimage() const;
   complex_num &setreal(rational_num other);
