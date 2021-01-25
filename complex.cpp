@@ -8,6 +8,10 @@ complex_num::complex_num(rational_num r, rational_num im) {
   real = r;
   imagine = im;
 }
+complex_num::complex_num(int real_up, unsigned real_down, int im_up , unsigned int im_down) {
+    real = rational_num(real_up,real_down);
+    imagine = rational_num(im_up,im_down);
+}
 
 complex_num &complex_num::operator=(const complex_num &other) {
   real = other.real;
@@ -24,7 +28,7 @@ complex_num complex_num::operator+(const complex_num &other) {
 complex_num complex_num::operator-(const complex_num &other) {
   rational_num first = other.real;
   rational_num second = other.imagine;
-  return complex_num(first - this->real, second - this->imagine);
+  return complex_num(this->real - first , this->imagine- second );
 }
 
 complex_num complex_num::operator*(const complex_num &other) {
@@ -40,14 +44,11 @@ complex_num complex_num::operator/(complex_num &other) {
   return complex_num(first, second);
 }
 
-bool complex_num::operator==(complex_num &other) {
-  bool real_eq = (this->real.reduction()) == (other.real.reduction());
-  bool img_eq = (this->imagine.reduction()) == (other.imagine.reduction());
-  return real_eq && img_eq;
+bool operator==(const complex_num &left, const complex_num &right)  {
+    return (left.real == right.real && left.imagine == right.imagine);
 }
-
-bool complex_num::operator!=(const complex_num *other) {
-  return !(this == other);
+bool operator!=(const complex_num &left, const complex_num &right) {
+    return ((!(left.real == right.real)) || (!(left.imagine == right.imagine)));
 }
 
 complex_num &complex_num::operator+=(const complex_num &other) {
@@ -78,7 +79,7 @@ complex_num complex_num::operator^(unsigned int n) {
   return result;
 }
 double complex_num::abs() {
-  double buf = std::sqrt((this->real * this->real).result + (this->imagine * this->imagine).result);
+  double buf = round(std::sqrt((this->real * this->real).result + (this->imagine * this->imagine).result)* 1000) / 1000;
   return buf;
 }
 rational_num complex_num::getreal() const {
@@ -96,5 +97,5 @@ complex_num &complex_num::setimage(rational_num other) {
   return *this;
 }
 double complex_num::argv() {
-  return atan2(this->imagine.result, this->real.result);
+  return round(atan2(this->imagine.result, this->real.result)*1000)/1000;
 }
